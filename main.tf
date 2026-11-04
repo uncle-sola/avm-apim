@@ -61,7 +61,8 @@ resource "azurerm_api_management" "this" {
       validation_key            = delegation.value.validation_key
     }
   }
-  # Hostname configuration
+  # Hostname configuration. The provider's key_vault_id argument is deprecated in favour of
+  # key_vault_certificate_id; the variable keeps the key_vault_id key so callers don't need to change.
   dynamic "hostname_configuration" {
     for_each = var.hostname_configuration != null ? [var.hostname_configuration] : []
 
@@ -73,7 +74,7 @@ resource "azurerm_api_management" "this" {
           host_name                       = developer_portal.value.host_name
           certificate                     = developer_portal.value.certificate
           certificate_password            = developer_portal.value.certificate_password
-          key_vault_id                    = developer_portal.value.key_vault_id
+          key_vault_certificate_id        = developer_portal.value.key_vault_id
           negotiate_client_certificate    = developer_portal.value.negotiate_client_certificate
           ssl_keyvault_identity_client_id = developer_portal.value.ssl_keyvault_identity_client_id
         }
@@ -85,7 +86,7 @@ resource "azurerm_api_management" "this" {
           host_name                       = management.value.host_name
           certificate                     = management.value.certificate
           certificate_password            = management.value.certificate_password
-          key_vault_id                    = management.value.key_vault_id
+          key_vault_certificate_id        = management.value.key_vault_id
           negotiate_client_certificate    = management.value.negotiate_client_certificate
           ssl_keyvault_identity_client_id = management.value.ssl_keyvault_identity_client_id
         }
@@ -97,7 +98,7 @@ resource "azurerm_api_management" "this" {
           host_name                       = portal.value.host_name
           certificate                     = portal.value.certificate
           certificate_password            = portal.value.certificate_password
-          key_vault_id                    = portal.value.key_vault_id
+          key_vault_certificate_id        = portal.value.key_vault_id
           negotiate_client_certificate    = portal.value.negotiate_client_certificate
           ssl_keyvault_identity_client_id = portal.value.ssl_keyvault_identity_client_id
         }
@@ -110,7 +111,7 @@ resource "azurerm_api_management" "this" {
           certificate                     = proxy.value.certificate
           certificate_password            = proxy.value.certificate_password
           default_ssl_binding             = proxy.value.default_ssl_binding
-          key_vault_id                    = proxy.value.key_vault_id
+          key_vault_certificate_id        = proxy.value.key_vault_id
           negotiate_client_certificate    = proxy.value.negotiate_client_certificate
           ssl_keyvault_identity_client_id = proxy.value.ssl_keyvault_identity_client_id
         }
@@ -122,7 +123,7 @@ resource "azurerm_api_management" "this" {
           host_name                       = scm.value.host_name
           certificate                     = scm.value.certificate
           certificate_password            = scm.value.certificate_password
-          key_vault_id                    = scm.value.key_vault_id
+          key_vault_certificate_id        = scm.value.key_vault_id
           negotiate_client_certificate    = scm.value.negotiate_client_certificate
           ssl_keyvault_identity_client_id = scm.value.ssl_keyvault_identity_client_id
         }
