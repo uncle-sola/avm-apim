@@ -1,0 +1,16 @@
+trigger:
+- none
+
+resources:
+  repositories:
+  - repository: Framework.Templates
+    type: git
+    name: Framework.Templates
+    ref: main
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: PR_Build
+  jobs:
+  - template: azuredevops/templates/jobs/pull-request-pipeline.yml@Framework.Templates
